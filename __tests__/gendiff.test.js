@@ -1,6 +1,6 @@
 import { test, expect, afterAll } from '@jest/globals';
-import gendiff from '../src/gendiff.js';
 import * as fs from 'fs';
+import gendiff from '../src/gendiff.js';
 
 let data1;
 let data2;
