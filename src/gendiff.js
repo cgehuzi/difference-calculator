@@ -1,9 +1,10 @@
 import _ from 'lodash';
 import * as fs from 'fs';
+import path from 'path';
 
 const genDiff = (file1, file2) => {
-  const json1 = JSON.parse(fs.readFileSync(file1, 'utf-8'));
-  const json2 = JSON.parse(fs.readFileSync(file2, 'utf-8'));
+  const json1 = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), file1), 'utf-8'));
+  const json2 = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), file2), 'utf-8'));
 
   const keys = Object.keys({ ...json1, ...json2 }).sort();
   const diffs = keys
