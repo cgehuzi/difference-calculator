@@ -10,10 +10,18 @@ const __dirname = dirname(__filename);
 const getFixteruPath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 const readFile = (filename) => fs.readFileSync(getFixteruPath(filename), 'utf-8');
 
-test('genDiff (step 3)', () => {
-  const file1 = getFixteruPath('step3/file1.json');
-  const file2 = getFixteruPath('step3/file2.json');
-  const diffs = readFile('step3/diffs');
+test('gendiff(.json, .json)', () => {
+  const file1 = getFixteruPath('file1.json');
+  const file2 = getFixteruPath('file2.json');
+  const diffs = readFile('diffs');
+
+  expect(gendiff(file1, file2)).toEqual(diffs);
+});
+
+test('gendiff(.yml, .yml)', () => {
+  const file1 = getFixteruPath('file1.yml');
+  const file2 = getFixteruPath('file2.yaml');
+  const diffs = readFile('diffs');
 
   expect(gendiff(file1, file2)).toEqual(diffs);
 });
