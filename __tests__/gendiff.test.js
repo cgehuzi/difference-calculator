@@ -10,26 +10,26 @@ const __dirname = dirname(__filename);
 const getFixteruPath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 const readFile = (filename) => fs.readFileSync(getFixteruPath(filename), 'utf-8');
 
-test('genDiff(.json, .json)', () => {
-  const file1 = getFixteruPath('file1.json');
-  const file2 = getFixteruPath('file2.json');
-  const diffs = readFile('diffs');
+test('genDiff - line structure', () => {
+  const json1 = getFixteruPath('line_file1.json');
+  const yaml1 = getFixteruPath('line_file1.yml');
+  const json2 = getFixteruPath('line_file2.json');
+  const yaml2 = getFixteruPath('line_file2.yaml');
+  const diffs = readFile('line_diffs');
 
-  expect(genDiff(file1, file2)).toEqual(diffs);
+  expect(genDiff(json1, json2)).toEqual(diffs);
+  expect(genDiff(yaml1, yaml2)).toEqual(diffs);
+  expect(genDiff(yaml1, json2)).toEqual(diffs);
 });
 
-test('genDiff(.yml, .yml)', () => {
-  const file1 = getFixteruPath('file1.yml');
-  const file2 = getFixteruPath('file2.yaml');
-  const diffs = readFile('diffs');
+test('genDiff - tree structure', () => {
+  const json1 = getFixteruPath('tree_file1.json');
+  const yaml1 = getFixteruPath('tree_file1.yml');
+  const json2 = getFixteruPath('tree_file2.json');
+  const yaml2 = getFixteruPath('tree_file2.yaml');
+  const diffs = readFile('tree_diffs');
 
-  expect(genDiff(file1, file2)).toEqual(diffs);
-});
-
-test('genDiff(.json, .yml)', () => {
-  const file1 = getFixteruPath('file1.json');
-  const file2 = getFixteruPath('file2.yaml');
-  const diffs = readFile('diffs');
-
-  expect(genDiff(file1, file2)).toEqual(diffs);
+  expect(genDiff(json1, json2)).toEqual(diffs);
+  expect(genDiff(yaml1, yaml2)).toEqual(diffs);
+  expect(genDiff(yaml1, json2)).toEqual(diffs);
 });
