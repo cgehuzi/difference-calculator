@@ -1,9 +1,9 @@
 import _ from 'lodash';
 import parseFile from './parsers.js';
-import stylish from './stylish.js';
 import { isObject, makeDiff, makeParent } from './tree.js';
+import getFormatter from './formatters/index.js';
 
-const genDiff = (file1, file2, formatter = stylish) => {
+const genDiff = (file1, file2, formatName = 'stylish') => {
   const json1 = parseFile(file1);
   const json2 = parseFile(file2);
 
@@ -36,7 +36,10 @@ const genDiff = (file1, file2, formatter = stylish) => {
     return diffs;
   };
 
-  return formatter(iter(json1, json2));
+  const result = iter(json1, json2);
+  const formatter = getFormatter(formatName);
+
+  return formatter(result);
 };
 
 export default genDiff;

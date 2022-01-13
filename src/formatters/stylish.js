@@ -6,7 +6,7 @@ import {
   getStatus,
   isDiff,
   getChildren,
-} from './tree.js';
+} from '../tree.js';
 
 const normalize = (item) => {
   if (!isObject(item)) {
