@@ -1,10 +1,9 @@
 import _ from 'lodash';
 import parseFile from './parsers.js';
-import { makeDiff, makeParent } from './tree.js';
+import stylish from './stylish.js';
+import { isObject, makeDiff, makeParent } from './tree.js';
 
-const isObject = (data) => Object.prototype.toString.call(data) === '[object Object]';
-
-const genDiff = (file1, file2) => {
+const genDiff = (file1, file2, formatter = stylish) => {
   const json1 = parseFile(file1);
   const json2 = parseFile(file2);
 
@@ -37,7 +36,7 @@ const genDiff = (file1, file2) => {
     return diffs;
   };
 
-  return iter(json1, json2);
+  return formatter(iter(json1, json2));
 };
 
 export default genDiff;

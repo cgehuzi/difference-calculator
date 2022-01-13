@@ -1,4 +1,4 @@
-import _ from 'lodash';
+const isObject = (data) => Object.prototype.toString.call(data) === '[object Object]';
 
 const makeDiff = (key, before, after, status) => ({
   type: 'diff',
@@ -9,7 +9,7 @@ const makeDiff = (key, before, after, status) => ({
 });
 const isDiff = (item) => item.type === 'diff';
 
-const makeParent = (key, children) => ({
+const makeParent = (key, children = []) => ({
   type: 'parent',
   key,
   children,
@@ -23,6 +23,7 @@ const getStatus = (item) => item.status;
 const getChildren = (parent) => parent.children;
 
 export {
+  isObject,
   makeDiff,
   isDiff,
   makeParent,
