@@ -16,6 +16,10 @@ program
   .action((filepath1, filepath2) => {
     switch (program.opts().format) {
       case 'stylish':
+        console.log(genDiff(filepath1, filepath2, stylish));
+        break;
+
+      default:
         console.log(genDiff(filepath1, filepath2));
         break;
     }
