@@ -5,20 +5,28 @@ import * as yaml from 'js-yaml';
 const getExtension = (file) => path.extname(file);
 const readFile = (file) => fs.readFileSync(path.resolve(process.cwd(), file), 'utf-8');
 
+const parseJson = (data) => JSON.parse(data);
+const parseYaml = (data) => yaml.load(data);
+const parseOther = (data) =>
+  data.split('\n').reduce((acc, item, index) => {
+    acc[index] = item;
+    return acc;
+  }, {});
+
 const parseFile = (file) => {
   const extension = getExtension(file);
   const data = readFile(file);
 
   switch (extension) {
     case '.json':
-      return JSON.parse(data);
+      return parseJson(data);
 
     case '.yaml':
     case '.yml':
-      return yaml.load(data);
+      return parseYaml(data);
 
     default:
-      return {};
+      return parseOther(data);
   }
 };
 
