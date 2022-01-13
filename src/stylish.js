@@ -77,7 +77,6 @@ const stylish = (diffs) => {
 
   const diffsObject = diffs.reduce(iter, {});
 
-  console.log(stringify(diffsObject));
   return stringify(diffsObject);
 };
 
