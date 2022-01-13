@@ -9,7 +9,7 @@ const parseJson = (data) => JSON.parse(data);
 const parseYaml = (data) => yaml.load(data);
 const parseOther = (data) =>
   data.split('\n').reduce((acc, item, index) => {
-    acc[index] = item;
+    acc[index + 1] = item;
     return acc;
   }, {});
 
