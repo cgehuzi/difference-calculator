@@ -17,13 +17,13 @@ const json = (diffs) => {
 
       switch (status) {
         case 'updated':
-          return { ...mappedItem, before, after };
+          return { ...mappedItem, value: { before, after } };
 
         case 'removed':
-          return { ...mappedItem, before };
+          return { ...mappedItem, value: before };
 
         case 'added':
-          return { ...mappedItem, after };
+          return { ...mappedItem, value: after };
 
         default:
           break;
@@ -32,7 +32,7 @@ const json = (diffs) => {
       return { ...mappedItem, before, after };
     });
 
-  return JSON.stringify(result);
+  return JSON.stringify(result, null, 2);
 };
 
 export default json;

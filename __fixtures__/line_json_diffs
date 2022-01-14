@@ -1,1 +1,25 @@
-[{"path":"follow","status":"removed","before":false},{"path":"proxy","status":"removed","before":"123.234.53.22"},{"path":"timeout","status":"updated","before":50,"after":20},{"path":"verbose","status":"added","after":true}]
+[
+  {
+    "path": "follow",
+    "status": "removed",
+    "value": false
+  },
+  {
+    "path": "proxy",
+    "status": "removed",
+    "value": "123.234.53.22"
+  },
+  {
+    "path": "timeout",
+    "status": "updated",
+    "value": {
+      "before": 50,
+      "after": 20
+    }
+  },
+  {
+    "path": "verbose",
+    "status": "added",
+    "value": true
+  }
+]
