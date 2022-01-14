@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import {
   isObject,
   getAfterValue,
@@ -5,10 +6,14 @@ import {
   getKey,
   getStatus,
   isDiff,
-  getChildren,
-} from '../tree.js';
+  getPath,
+} from '../utils.js';
 
 const normalize = (item) => {
+  if (item === undefined) {
+    return undefined;
+  }
+
   if (!isObject(item)) {
     return item !== null ? item.toString() : 'null';
   }
@@ -18,6 +23,8 @@ const normalize = (item) => {
     return acc;
   }, {});
 };
+
+const normalizePath = (path) => path.map((item) => `  ${item}`);
 
 const stringify = (value, replacer = '  ') => {
   const iter = (item, spaces) => {
@@ -46,30 +53,28 @@ const stylish = (diffs) => {
 
     if (isDiff(item)) {
       const status = getStatus(item);
-      const before = getBeforeValue(item);
-      const after = getAfterValue(item);
+      const before = normalize(getBeforeValue(item));
+      const after = normalize(getAfterValue(item));
+      const path = normalizePath(getPath(item));
 
       switch (status) {
         case 'updated':
-          acc[`- ${key}`] = normalize(before);
-          acc[`+ ${key}`] = normalize(after);
+          _.set(acc, [...path, `- ${key}`], before);
+          _.set(acc, [...path, `+ ${key}`], after);
           break;
 
         case 'deleted':
-          acc[`- ${key}`] = normalize(before);
+          _.set(acc, [...path, `- ${key}`], before);
           break;
 
         case 'added':
-          acc[`+ ${key}`] = normalize(after);
+          _.set(acc, [...path, `+ ${key}`], after);
           break;
 
         default:
-          acc[`  ${key}`] = normalize(before);
+          _.set(acc, [...path, `  ${key}`], before);
           break;
       }
-    } else {
-      const childrenObject = getChildren(item).reduce(iter, {});
-      acc[`  ${key}`] = childrenObject;
     }
 
     return acc;

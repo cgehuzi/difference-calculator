@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import {
   isObject,
   getAfterValue,
@@ -6,8 +5,8 @@ import {
   getKey,
   getStatus,
   isDiff,
-  getChildren,
-} from '../tree.js';
+  getPath,
+} from '../utils.js';
 
 const normalize = (item) => {
   if (typeof item === 'string') {
@@ -22,55 +21,37 @@ const normalize = (item) => {
 };
 
 const plain = (diffs) => {
-  const setPath = (list, path = []) =>
-    list.flatMap((item) => {
-      const key = getKey(item);
-      const nowPath = [...path];
-      nowPath.push(key);
-
-      if (isDiff(item)) {
-        const newItem = _.cloneDeep(item);
-        newItem.path = nowPath.join('.');
-        return newItem;
-      }
-
-      const children = getChildren(item);
-      return setPath(children, nowPath);
-    });
-
-  const diffsPathed = setPath(diffs);
-
   const result = [];
 
   const iter = (item) => {
     if (isDiff(item)) {
       const status = getStatus(item);
-      const before = getBeforeValue(item);
-      const after = getAfterValue(item);
+      const before = normalize(getBeforeValue(item));
+      const after = normalize(getAfterValue(item));
+      const key = getKey(item);
+      const path = getPath(item);
+      const stringPath = [...path, key].join('.');
 
       switch (status) {
         case 'updated':
-          result.push(`Property '${item.path}' was updated. From ${normalize(before)} to ${normalize(after)}`);
+          result.push(`Property '${stringPath}' was updated. From ${before} to ${after}`);
           break;
 
         case 'deleted':
-          result.push(`Property '${item.path}' was removed`);
+          result.push(`Property '${stringPath}' was removed`);
           break;
 
         case 'added':
-          result.push(`Property '${item.path}' was added with value: ${normalize(after)}`);
+          result.push(`Property '${stringPath}' was added with value: ${after}`);
           break;
 
         default:
           break;
       }
-    } else {
-      const children = getChildren(item);
-      result.push(children.flatMap(iter));
     }
   };
 
-  diffsPathed.map(iter);
+  diffs.map(iter);
 
   return result.join('\n');
 };
