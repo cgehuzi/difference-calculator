@@ -1,11 +1,11 @@
 {
   "name": "@hexlet/code",
   "version": "1.0.0",
-  "description": "Difference calculator",
+  "description": "Files difference calculator",
   "main": "src/gendiff.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "bin": {
     "gendiff": "bin/gendiff.js"
@@ -14,7 +14,13 @@
     "type": "git",
     "url": "git+https://github.com/cgehuzi/frontend-project-lvl2.git"
   },
-  "author": "",
+  "keywords": [
+    "hexlet",
+    "project",
+    "frontend",
+    "difference calculator"
+  ],
+  "author": "cgehuzi <mail.cgehuzi@gmail.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/cgehuzi/frontend-project-lvl2/issues"
