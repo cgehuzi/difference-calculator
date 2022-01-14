@@ -22,7 +22,7 @@
 
 ```bash
 npm ci --production     # установка пакетов из зависимостей
-npm link                # установка brain-games
+npm link                # установка утилиты
 ```
 
 ## Запуск
