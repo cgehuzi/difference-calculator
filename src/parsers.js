@@ -7,11 +7,7 @@ const readFile = (file) => fs.readFileSync(path.resolve(process.cwd(), file), 'u
 
 const parseJson = (data) => JSON.parse(data);
 const parseYaml = (data) => yaml.load(data);
-const parseOther = (data) =>
-  data.split('\n').reduce((acc, item, index) => {
-    acc[index + 1] = item;
-    return acc;
-  }, {});
+const parseOther = (data) => data.split('\n').reduce((acc, item, index) => ({ ...acc, [index + 1]: item }), {});
 
 const parseFile = (file) => {
   const extension = getExtension(file);

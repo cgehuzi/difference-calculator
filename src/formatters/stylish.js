@@ -12,10 +12,7 @@ const normalize = (item) => {
     return item !== null ? item.toString() : 'null';
   }
 
-  return Object.entries(item).reduce((acc, [key, value]) => {
-    acc[`  ${key}`] = normalize(value);
-    return acc;
-  }, {});
+  return Object.entries(item).reduce((acc, [key, value]) => ({ ...acc, [`  ${key}`]: normalize(value) }), {});
 };
 
 const normalizePath = (path) => path.map((item) => `  ${item}`);

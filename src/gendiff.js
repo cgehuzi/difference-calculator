@@ -8,7 +8,7 @@ const genDiff = (file1, file2, formatName = 'stylish') => {
   const json2 = parseFile(file2);
 
   const iter = (data1, data2, path) => {
-    const keys = Object.keys({ ...data1, ...data2 }).sort();
+    const keys = _.sortBy(Object.keys({ ...data1, ...data2 }));
 
     const diffs = keys.reduce((acc, key) => {
       const value1 = _.cloneDeep(data1[key]);
@@ -18,20 +18,20 @@ const genDiff = (file1, file2, formatName = 'stylish') => {
       if (_.has(data1, key)) {
         if (_.has(data2, key)) {
           if (_.isEqual(value1, value2)) {
-            acc.push(makeDiff(key, path, value1, value2, 'equal'));
-          } else if (isObject(value1) && isObject(value2)) {
-            acc.push(iter(value1, value2, nexPath));
-          } else {
-            acc.push(makeDiff(key, path, value1, value2, 'updated'));
+            return [...acc, makeDiff(key, path, value1, value2, 'equal')];
           }
-        } else {
-          acc.push(makeDiff(key, path, value1, value2, 'removed'));
+
+          if (isObject(value1) && isObject(value2)) {
+            return [...acc, iter(value1, value2, nexPath)];
+          }
+
+          return [...acc, makeDiff(key, path, value1, value2, 'updated')];
         }
-      } else {
-        acc.push(makeDiff(key, path, value1, value2, 'added'));
+
+        return [...acc, makeDiff(key, path, value1, value2, 'removed')];
       }
 
-      return acc;
+      return [...acc, makeDiff(key, path, value1, value2, 'added')];
     }, []);
 
     return diffs;

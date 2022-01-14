@@ -13,29 +13,23 @@ const json = (diffs) => {
       const path = getPath(item);
       const stringPath = [...path, key].join('.');
 
-      const mappedItem = {};
-      mappedItem.path = stringPath;
-      mappedItem.status = status;
+      const mappedItem = { path: stringPath, status };
 
       switch (status) {
         case 'updated':
-          mappedItem.before = before;
-          mappedItem.after = after;
-          break;
+          return { ...mappedItem, before, after };
 
         case 'removed':
-          mappedItem.before = before;
-          break;
+          return { ...mappedItem, before };
 
         case 'added':
-          mappedItem.after = after;
-          break;
+          return { ...mappedItem, after };
 
         default:
           break;
       }
 
-      return mappedItem;
+      return { ...mappedItem, before, after };
     });
 
   return JSON.stringify(result);
