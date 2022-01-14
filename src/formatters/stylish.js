@@ -63,7 +63,7 @@ const stylish = (diffs) => {
           _.set(acc, [...path, `+ ${key}`], after);
           break;
 
-        case 'deleted':
+        case 'removed':
           _.set(acc, [...path, `- ${key}`], before);
           break;
 

@@ -37,7 +37,7 @@ const plain = (diffs) => {
           result.push(`Property '${stringPath}' was updated. From ${before} to ${after}`);
           break;
 
-        case 'deleted':
+        case 'removed':
           result.push(`Property '${stringPath}' was removed`);
           break;
 

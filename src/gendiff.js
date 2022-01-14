@@ -25,7 +25,7 @@ const genDiff = (file1, file2, formatName = 'stylish') => {
             acc.push(makeDiff(key, path, value1, value2, 'updated'));
           }
         } else {
-          acc.push(makeDiff(key, path, value1, value2, 'deleted'));
+          acc.push(makeDiff(key, path, value1, value2, 'removed'));
         }
       } else {
         acc.push(makeDiff(key, path, value1, value2, 'added'));

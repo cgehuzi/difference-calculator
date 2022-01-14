@@ -23,7 +23,7 @@ const json = (diffs) => {
           mappedItem.after = after;
           break;
 
-        case 'deleted':
+        case 'removed':
           mappedItem.before = before;
           break;
 
