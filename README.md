@@ -4,7 +4,7 @@
 
 ### Package status:
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/d21a0f40f28b4ccc105b/maintainability)](https://codeclimate.com/github/cgehuzi/difference-calculator/maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/b5ac9573d46293301f5e/maintainability)](https://codeclimate.com/github/cgehuzi/difference-calculator/maintainability)
 [![Actions Status](https://github.com/cgehuzi/difference-calculator/workflows/hexlet-check/badge.svg)](https://github.com/cgehuzi/difference-calculator/actions)
 ![ESLint](https://github.com/cgehuzi/difference-calculator/actions/workflows/eslint.yml/badge.svg)
 ![Jest](https://github.com/cgehuzi/difference-calculator/actions/workflows/jest.yml/badge.svg)
