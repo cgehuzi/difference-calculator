@@ -1,12 +1,6 @@
 import _ from 'lodash';
 import {
-  isObject,
-  getAfterValue,
-  getBeforeValue,
-  getKey,
-  getStatus,
-  isDiff,
-  getPath,
+  isObject, getAfterValue, getBeforeValue, getKey, getStatus, getPath,
 } from '../utils.js';
 
 const normalize = (item) => {
@@ -48,41 +42,36 @@ const stringify = (value, replacer = '  ') => {
 };
 
 const stylish = (diffs) => {
-  const iter = (acc, item) => {
+  const result = diffs.reduce((acc, item) => {
     const key = getKey(item);
+    const status = getStatus(item);
+    const before = normalize(getBeforeValue(item));
+    const after = normalize(getAfterValue(item));
+    const path = normalizePath(getPath(item));
 
-    if (isDiff(item)) {
-      const status = getStatus(item);
-      const before = normalize(getBeforeValue(item));
-      const after = normalize(getAfterValue(item));
-      const path = normalizePath(getPath(item));
+    switch (status) {
+      case 'updated':
+        _.set(acc, [...path, `- ${key}`], before);
+        _.set(acc, [...path, `+ ${key}`], after);
+        break;
 
-      switch (status) {
-        case 'updated':
-          _.set(acc, [...path, `- ${key}`], before);
-          _.set(acc, [...path, `+ ${key}`], after);
-          break;
+      case 'removed':
+        _.set(acc, [...path, `- ${key}`], before);
+        break;
 
-        case 'removed':
-          _.set(acc, [...path, `- ${key}`], before);
-          break;
+      case 'added':
+        _.set(acc, [...path, `+ ${key}`], after);
+        break;
 
-        case 'added':
-          _.set(acc, [...path, `+ ${key}`], after);
-          break;
-
-        default:
-          _.set(acc, [...path, `  ${key}`], before);
-          break;
-      }
+      default:
+        _.set(acc, [...path, `  ${key}`], before);
+        break;
     }
 
     return acc;
-  };
+  }, {});
 
-  const diffsObject = diffs.reduce(iter, {});
-
-  return stringify(diffsObject);
+  return stringify(result);
 };
 
 export default stylish;
