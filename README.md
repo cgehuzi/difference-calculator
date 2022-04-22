@@ -4,10 +4,9 @@
 
 ### Package status:
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/b5ac9573d46293301f5e/maintainability)](https://codeclimate.com/github/cgehuzi/difference-calculator/maintainability)
-[![Actions Status](https://github.com/cgehuzi/difference-calculator/workflows/hexlet-check/badge.svg)](https://github.com/cgehuzi/difference-calculator/actions)
-![ESLint](https://github.com/cgehuzi/difference-calculator/actions/workflows/eslint.yml/badge.svg)
-![Jest](https://github.com/cgehuzi/difference-calculator/actions/workflows/jest.yml/badge.svg)
+[![Maintainability](https://api.codeclimate.com/v1/badges/17a8d9f2599a2d35c24a/maintainability)](https://codeclimate.com/github/cgehuzi/frontend-project-lvl2/maintainability)
+[![eslint](https://github.com/cgehuzi/frontend-project-lvl2/actions/workflows/eslint.yml/badge.svg)](https://github.com/cgehuzi/frontend-project-lvl2/actions/workflows/eslint.yml)
+[![jest](https://github.com/cgehuzi/frontend-project-lvl2/actions/workflows/jest.yml/badge.svg)](https://github.com/cgehuzi/frontend-project-lvl2/actions/workflows/jest.yml)
 
 ## Описание
 
